@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" th:action="@{/customer/update}" th:object="${customer}" enctype="multipart/form-data">
+    <label>ID</label>
+    <input type="text" th:field="*{id}" readonly>
+    <label>Name</label>
+    <input type="text" th:field="*{name}">
+    <img th:src="@{'/image/'+${avatar}}" width="100px" height="100px" style="border-radius: 100%">
+    <input type="file" th:field="*{avatar}" oninput="previewFile()">
+    <button type="submit">Update</button>
+</form>
+
+<script>
+    function previewFile() {
+        var preview = document.querySelector('img');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+</script>
+</body>
+</html>
